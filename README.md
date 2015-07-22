@@ -9,7 +9,7 @@ The PinterestSDK is a cocoapod. In order to use it you will need to create a `Po
 Open up the Podfile and add the following dependency:
 
 ```bash
-pod "PinterestSDK", :path => '~/path/to/iOS-PDK'
+pod "PinterestSDK", :git => "git@github.com:pinterest/ios-pdk.git"
 ```
 
 Save your Podfile and run 'pod install' from the command line.
