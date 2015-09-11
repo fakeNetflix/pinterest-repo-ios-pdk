@@ -1,31 +1,31 @@
 PODS:
-  - AFNetworking (2.5.1):
-    - AFNetworking/NSURLConnection (= 2.5.1)
-    - AFNetworking/NSURLSession (= 2.5.1)
-    - AFNetworking/Reachability (= 2.5.1)
-    - AFNetworking/Security (= 2.5.1)
-    - AFNetworking/Serialization (= 2.5.1)
-    - AFNetworking/UIKit (= 2.5.1)
-  - AFNetworking/NSURLConnection (2.5.1):
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.1):
+  - AFNetworking/NSURLSession (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.1)
-  - AFNetworking/Security (2.5.1)
-  - AFNetworking/Serialization (2.5.1)
-  - AFNetworking/UIKit (2.5.1):
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Expecta (0.3.2)
-  - PinterestSDK (0.1.0):
+  - Expecta (1.0.2)
+  - PinterestSDK (1.0):
     - AFNetworking (~> 2.3)
     - SSKeychain
   - Specta (0.3.0.beta1)
-  - SSKeychain (1.2.2)
+  - SSKeychain (1.2.3)
 
 DEPENDENCIES:
   - Expecta
@@ -45,10 +45,10 @@ CHECKOUT OPTIONS:
     :tag: v0.3.0.beta1
 
 SPEC CHECKSUMS:
-  AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
-  Expecta: 8c507baf13211207b1e9d0a741480600e6b4ed15
-  PinterestSDK: ad921aed44f3a7ad509c4cfe3bdc292839a7ee59
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  Expecta: 54e8a3530add08f4f0208c111355eda7cde74a53
+  PinterestSDK: e8940454001465edf1b759b0f7a49933d4c514a1
   Specta: 63e8ac8e07db6675c7096d37f77a266a1be4c02d
-  SSKeychain: 88767e903ee8d274ed380e364d96b7a101235286
+  SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
 
 COCOAPODS: 0.35.0
