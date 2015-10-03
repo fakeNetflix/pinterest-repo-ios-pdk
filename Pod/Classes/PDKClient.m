@@ -169,7 +169,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
                                                                  @"last_name",
                                                                  @"bio",
                                                                  @"created_at",
-                                                                 @"counts(pins,likes,boards)",
+                                                                 @"counts",
                                                                  @"image"]];
                            [[PDKClient sharedInstance] getAuthorizedUserFields:fields
                                                                    withSuccess:successBlock
