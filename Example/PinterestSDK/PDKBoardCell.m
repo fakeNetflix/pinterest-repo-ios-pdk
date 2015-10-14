@@ -70,7 +70,7 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    [self.boardImageView setImageWithURL:nil];
+    self.boardImageView.image = nil;
     [self showSpinner:NO withPercentage:0];
 }
 

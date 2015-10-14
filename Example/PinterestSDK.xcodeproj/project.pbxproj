@@ -24,6 +24,7 @@
 		9C0C91121AB393E10061820A /* PDKPinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C91111AB393E10061820A /* PDKPinCell.m */; };
 		9C0C91191AB4F97E0061820A /* PDKBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C91171AB4F97E0061820A /* PDKBoardCell.m */; };
 		9C0C911A1AB4F97E0061820A /* PDKBoardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0C91181AB4F97E0061820A /* PDKBoardCell.xib */; };
+		9C13B20E1BCEF6FB00E40923 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C13B20D1BCEF6FB00E40923 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		9C93F8B81AB0C9C80001844E /* PDKBoardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C93F8B71AB0C9C80001844E /* PDKBoardsViewController.m */; };
 		9C93F8BB1AB0CC360001844E /* PDKPinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C93F8BA1AB0CC360001844E /* PDKPinsViewController.m */; };
 /* End PBXBuildFile section */
@@ -46,7 +47,6 @@
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6003F591195388D20070C39A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6003F595195388D20070C39A /* PinterestSDK-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PinterestSDK-Info.plist"; sourceTree = "<group>"; };
-		6003F597195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6003F59B195388D20070C39A /* PinterestSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PinterestSDK-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* PDKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDKAppDelegate.h; sourceTree = "<group>"; };
@@ -68,6 +68,7 @@
 		9C0C91161AB4F97E0061820A /* PDKBoardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKBoardCell.h; sourceTree = "<group>"; };
 		9C0C91171AB4F97E0061820A /* PDKBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKBoardCell.m; sourceTree = "<group>"; };
 		9C0C91181AB4F97E0061820A /* PDKBoardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDKBoardCell.xib; sourceTree = "<group>"; };
+		9C13B20D1BCEF6FB00E40923 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9C93F8B61AB0C9C80001844E /* PDKBoardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKBoardsViewController.h; sourceTree = "<group>"; };
 		9C93F8B71AB0C9C80001844E /* PDKBoardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKBoardsViewController.m; sourceTree = "<group>"; };
 		9C93F8B91AB0CC360001844E /* PDKPinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKPinsViewController.h; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 		6003F593195388D20070C39A /* PinterestSDK */ = {
 			isa = PBXGroup;
 			children = (
+				9C13B20D1BCEF6FB00E40923 /* Launch Screen.storyboard */,
 				6003F59C195388D20070C39A /* PDKAppDelegate.h */,
 				6003F59D195388D20070C39A /* PDKAppDelegate.m */,
 				6003F5A5195388D20070C39A /* PDKViewController.h */,
@@ -175,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				6003F595195388D20070C39A /* PinterestSDK-Info.plist */,
-				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* PinterestSDK-Prefix.pch */,
 			);
@@ -260,7 +261,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = PDK;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "ricky cancro";
 				TargetAttributes = {
 					6003F5AD195388D20070C39A = {
@@ -292,6 +293,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C13B20E1BCEF6FB00E40923 /* Launch Screen.storyboard in Resources */,
 				9C0C911A1AB4F97E0061820A /* PDKBoardCell.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 			);
@@ -404,14 +406,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		6003F596195388D20070C39A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6003F597195388D20070C39A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		6003F5B8195388D20070C39A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -441,6 +435,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -500,10 +495,10 @@
 			baseConfigurationReference = 6C59D7988165563BB1CE96FF /* Pods-PinterestSDK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PinterestSDK/PinterestSDK-Prefix.pch";
 				INFOPLIST_FILE = "PinterestSDK/PinterestSDK-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -514,10 +509,10 @@
 			baseConfigurationReference = D5AE1B0420CD8C97A47F04F7 /* Pods-PinterestSDK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PinterestSDK/PinterestSDK-Prefix.pch";
 				INFOPLIST_FILE = "PinterestSDK/PinterestSDK-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -540,6 +535,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -559,6 +555,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
