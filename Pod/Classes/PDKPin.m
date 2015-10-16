@@ -96,7 +96,7 @@ static NSString * const kPDKPinterestAppPinItURLString = @"pinterestsdk.v1://pin
     
     NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
     
-    NSDictionary *params = @{@"client_id" : [PDKClient sharedInstance].appId,
+    NSDictionary *params = @{@"app_id" : [PDKClient sharedInstance].appId,
                              @"image_url" : [imageURL absoluteString],
                              @"source_url" : [sourceURL absoluteString],
                              @"app_name" : appName,
