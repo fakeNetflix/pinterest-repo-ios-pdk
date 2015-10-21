@@ -66,6 +66,13 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
 @property (nonatomic, readonly, copy) NSString *appId;
 
 /**
+ *  The oauthToken returned from the server unpon authentication. If you store this in your
+ *  app, please be sure to do so securely (in keychain) and be warned that it can expire
+ *  at any time. If the token expires, you will need to reauthenticate and get a new token.
+ */
+@property (nonatomic, copy) NSString *oauthToken;
+
+/**
  *  Set to YES when the client is authorized and requests can be made
  */
 @property (nonatomic, readonly) BOOL authorized;
