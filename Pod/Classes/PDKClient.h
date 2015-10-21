@@ -2,8 +2,7 @@
 //  Created by Ricky Cancro on 1/28/15.
 
 @import Foundation;
-
-#import "AFHTTPRequestOperationManager.h"
+@import AFNetworking;
 
 /**
  *  Permissions that you can request a user to authorize.
