@@ -2,7 +2,7 @@
 //  Created by Ricky Cancro on 1/28/15.
 
 @import Foundation;
-@import AFNetworking;
+#import <AFNetworking/AFNetworking.h>
 
 /**
  *  Permissions that you can request a user to authorize.
