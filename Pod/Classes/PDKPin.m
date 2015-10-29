@@ -29,6 +29,7 @@ static PDKUnauthPinCreationSuccess _pinSuccessBlock = NULL;
 static PDKUnauthPinCreationFailure _pinFailureBlock = NULL;
 
 static NSString * const kPDKPinterestAppPinItURLString = @"pinterestsdk.v1://pinit/";
+static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.com/pin/create/button/";
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -111,6 +112,11 @@ static NSString * const kPDKPinterestAppPinItURLString = @"pinterestsdk.v1://pin
         [[UIApplication sharedApplication] openURL:pinitURL];
     } else {
         //open web pinit url
+        NSDictionary *webParams = @{@"url": [sourceURL absoluteString],
+                                    @"media": [imageURL absoluteString],
+                                    @"description": pinDescription};
+        NSURL *pinitWebURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebPinItURLString, [webParams _PDK_queryStringValue]]];
+        [[UIApplication sharedApplication] openURL:pinitWebURL];
     }
 #else
 #endif
