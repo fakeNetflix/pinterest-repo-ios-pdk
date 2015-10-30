@@ -97,9 +97,9 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
  *  will either redirect to the Pinterest app (if installed) or to a website to allow a
  *  user to authuorize his/her account.
  *
- *  Even if a user has authorized in the past, this method should be called to make sure the
- *  authorization is still valid. If it is valid then no redirect will happen, and the success
- *  block will be called.
+ *  This method will try to use the cached token to authenticate if it is available. If not,
+ *  then the user will be redirected to authenticate. If you wish to silently authenticate if
+ *  a user's cached token is still valid, try silentlyAuthenticateWithSuccess:andFailure:.
  *
  *  @param permissions  List of permissions to request from the user's Pinterest account
  *  @param successBlock called when the API request succeeds
@@ -108,6 +108,17 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
 - (void)authenticateWithPermissions:(NSArray *)permissions
                         withSuccess:(PDKClientSuccess)successBlock
                          andFailure:(PDKClientFailure)failureBlock;
+
+/**
+ *  This method will use the cached oauth token and permission to populate PDKClient's oauthToken
+ *  property. If there is no cached oauth token this method will call the failure block and do 
+ *  nothing else (i.e., no app switching to authenticate). 
+ *
+ *  @param successBlock called if the cached token can be used to authenticate
+ *  @param failureBlock called if there is no cached token
+ */
+- (void)silentlyAuthenticateWithSuccess:(PDKClientSuccess)successBlock
+                                 andFailure:(PDKClientFailure)failureBlock;
 
 /**
  *  After the user authorizes his/her Pinterest account, control switches back to the
