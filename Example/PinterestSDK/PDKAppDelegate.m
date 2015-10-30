@@ -50,6 +50,11 @@ static NSString * const kPDKExampleFakeAppId = @"4759388231231868449";
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [[PDKClient sharedInstance] handleCallbackURL:url];
+}
+
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options
 {
     return [[PDKClient sharedInstance] handleCallbackURL:url];
