@@ -138,7 +138,20 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
 }
 
 // authentication
+
+- (void)silentlyAuthenticateWithSuccess:(PDKClientSuccess)successBlock
+                                 andFailure:(PDKClientFailure)failureBlock;
+{
+    [self authenticateWithPermissions:nil silent:YES withSuccess:successBlock andFailure:failureBlock];
+}
+
+- (void)authenticateWithPermissions:(NSArray *)permissions withSuccess:(PDKClientSuccess)successBlock andFailure:(PDKClientFailure)failureBlock
+{
+    [self authenticateWithPermissions:permissions silent:NO withSuccess:successBlock andFailure:failureBlock];
+}
+
 - (void)authenticateWithPermissions:(NSArray *)permissions
+                             silent:(BOOL)silent
                         withSuccess:(PDKClientSuccess)successBlock
                          andFailure:(PDKClientFailure)failureBlock
 {
@@ -181,7 +194,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
                    }
                    
                } andFailure:localFailureBlock];
-    } else {
+    } else if (silent == NO) {
         self.authenticationSuccessBlock = successBlock;
         self.authenticationFailureBlock = failureBlock;
         
@@ -226,7 +239,11 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
         oauthURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebOAuthURLString, [params _PDK_queryStringValue]]];
         [[NSWorkspace sharedWorkspace] openURL:oauthURL];
 #endif
+    } else if (silent && failureBlock) {
+        // silent was yes, but we did not have a cached token. that counts as a failure.
+        failureBlock(nil);
     }
+
 }
 
 + (void)clearAuthorizedUser

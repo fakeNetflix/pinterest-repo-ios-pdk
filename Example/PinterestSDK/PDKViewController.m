@@ -81,6 +81,11 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[pinItButton]-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[authenticateButton]-[pinItButton]-[_pinsButton]-[_likesButton]-[_boardsButton]-[_createBoardButton]-[_resultLabel]" options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight metrics:nil views:views]];
     [self updateButtonEnabledState];
+    
+    __weak PDKViewController *weakSelf = self;
+    [[PDKClient sharedInstance] silentlyAuthenticateWithSuccess:^(PDKResponseObject *responseObject) {
+        [weakSelf updateButtonEnabledState];
+    } andFailure:nil];
 }
 
 - (void)updateButtonEnabledState
