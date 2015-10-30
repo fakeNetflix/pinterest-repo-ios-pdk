@@ -55,4 +55,9 @@ static NSString * const kPDKExampleFakeAppId = @"4759388231231868449";
     return [[PDKClient sharedInstance] handleCallbackURL:url];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options
+{
+    return [[PDKClient sharedInstance] handleCallbackURL:url];
+}
+
 @end
