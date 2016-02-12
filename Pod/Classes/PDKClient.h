@@ -327,7 +327,7 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
           andFailure:(PDKClientFailure)failureBlock;
 
 /**
- *  Delete teh given board
+ *  Delete the given board
  *
  *  @param boardId      ID of board to delete
  *  @param successBlock Called when the API call succeeds
@@ -380,6 +380,16 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
                   description:(NSString *)pinDescription
                   withSuccess:(PDKClientSuccess)successBlock
                    andFailure:(PDKClientFailure)failureBlock;
+/**
+ *  Delete the given pin
+ *
+ *  @param pinId        ID of pin to delete
+ *  @param successBlock Called when the API call succeeds
+ *  @param failureBlock Called when the API call fails
+ */
+- (void)deletePin:(NSString *)pinId
+      withSuccess:(PDKClientSuccess)successBlock
+       andFailure:(PDKClientFailure)failureBlock;
 
 #if TARGET_OS_IPHONE
 /**
