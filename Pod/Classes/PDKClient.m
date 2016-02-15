@@ -631,11 +631,13 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
         }
     };
     
-    NSDictionary *parameters = @{
-                                 @"link" : link,
-                                 @"board" : boardId,
-                                 @"note" : pinDescription
-                                 };
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"board"] = boardId;
+    parameters[@"note"] = pinDescription;
+    if (link != nil) {
+        parameters[@"link"] = link;
+    }
+    
     NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST"
                                                             path:@"pins/"
                                                       parameters:parameters
