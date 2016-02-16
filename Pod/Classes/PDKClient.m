@@ -595,6 +595,14 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     
 }
 
+- (void)deletePin:(NSString *)pinId
+      withSuccess:(PDKClientSuccess)successBlock
+       andFailure:(PDKClientFailure)failureBlock
+{
+    NSString *path = [NSString stringWithFormat:@"pins/%@/", pinId];
+    [self deletePath:path parameters:nil withSuccess:successBlock andFailure:failureBlock];
+}
+
 - (void)createPinWithParameters:(NSDictionary *)parameters
                     withSuccess:(PDKClientSuccess)successBlock
                      andFailure:(PDKClientFailure)failureBlock
