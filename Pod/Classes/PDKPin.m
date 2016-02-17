@@ -36,6 +36,7 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
     self = [super initWithDictionary:dictionary];
     if (self) {
         _url = [NSURL URLWithString:dictionary[@"link"]];
+        _pinURL = [NSURL URLWithString:dictionary[@"url"]];
         _descriptionText = dictionary[@"note"];
         _board = [PDKBoard boardFromDictionary:dictionary[@"board"]];
         _creator = [PDKUser userFromDictionary:dictionary[@"creator"]];

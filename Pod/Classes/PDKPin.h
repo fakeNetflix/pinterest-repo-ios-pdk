@@ -37,6 +37,11 @@ typedef void (^PDKUnauthPinCreationFailure)(NSError *error);
 @property (nonatomic, copy, readonly) NSURL *url;
 
 /**
+ *  The URL to the pin itself
+ */
+@property (nonatomic, copy, readonly) NSURL *pinURL;
+
+/**
  *  The description of the pin
  */
 @property (nonatomic, copy, readonly) NSString *descriptionText;
