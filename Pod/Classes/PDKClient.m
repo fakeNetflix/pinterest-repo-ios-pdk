@@ -374,6 +374,27 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     [self.operationQueue addOperation:operation];
 }
 
+- (void)patchPath:(NSString *)path
+     parameters:(NSDictionary *)parameters
+    withSuccess:(PDKClientSuccess)successBlock
+     andFailure:(PDKClientFailure)failureBlock;
+{
+    NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:path parameters:parameters];
+        
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          if (successBlock && [responseObject isKindOfClass:[NSDictionary class]]) {
+                                                                              PDKResponseObject *response = [[PDKResponseObject alloc] initWithDictionary:(NSDictionary *)responseObject response:operation.response];
+                                                                              successBlock(response);
+                                                                          }
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          if (failureBlock) {
+                                                                              failureBlock(error);
+                                                                          }
+                                                                      }];
+    [self.operationQueue addOperation:operation];
+}
+
 - (void)deletePath:(NSString *)path
         parameters:(NSDictionary *)parameters
        withSuccess:(PDKClientSuccess)successBlock
