@@ -12,6 +12,7 @@
 #import "PDKResponseObject.h"
 #import "PDKUser.h"
 
+#import <SafariServices/SafariServices.h>
 #import <SSKeychain/SSKeychain.h>
 
 NSString * const PDKClientReadPublicPermissions = @"read_public";
@@ -214,7 +215,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
         
 #if TARGET_OS_IPHONE
         if ([[UIApplication sharedApplication] canOpenURL:oauthURL]) {
-            [[UIApplication sharedApplication] openURL:oauthURL];
+            [PDKClient openURL:oauthURL];
         } else {
             NSString *redirectURL = [NSString stringWithFormat:@"pdk%@://", self.appId];
             params = @{@"client_id" : self.appId,
@@ -225,7 +226,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
             
             // open the web oauth
             oauthURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebOAuthURLString, [params _PDK_queryStringValue]]];
-            [[UIApplication sharedApplication] openURL:oauthURL];
+            [PDKClient openURL:oauthURL];
         }
 #else
         NSString *redirectURL = [NSString stringWithFormat:@"pdk%@://", self.appId];
@@ -237,7 +238,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
         
         // open the web oauth
         oauthURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebOAuthURLString, [params _PDK_queryStringValue]]];
-        [[NSWorkspace sharedWorkspace] openURL:oauthURL];
+        [PDKClient openURL:oauthURL];
 #endif
     } else if (silent && failureBlock) {
         // silent was yes, but we did not have a cached token. that counts as a failure.
@@ -256,6 +257,14 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     BOOL handled = NO;
     NSString *urlScheme = [url scheme];
     if ([urlScheme isEqualToString:self.clientRedirectURLString]) {
+        // if we came here via SFSafariViewController then we need to dismiss the VC
+        if ([SFSafariViewController class]) {
+            UIViewController *mainViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+            if ([[mainViewController presentedViewController] isKindOfClass:[SFSafariViewController class]]) {
+                [mainViewController dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
+        
         // get the oauth token
         NSDictionary *parameters = [NSDictionary _PDK_dictionaryWithQueryString:[url query]];
         NSString *method = parameters[@"method"];
@@ -608,6 +617,18 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
                      andFailure:(PDKClientFailure)failureBlock
 {
     [self postPath:@"pins/" parameters:parameters withSuccess:successBlock andFailure:failureBlock];
+}
+
++ (void)openURL:(NSURL *)url
+{
+    NSString *scheme = [[url scheme] lowercaseString];
+    if (NSClassFromString(@"SFSafariViewController") != nil && ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])) {
+        UIViewController *viewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+        [viewController presentViewController:safariViewController animated:YES completion:nil];
+    } else if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url];
+    }
 }
 
 #if TARGET_OS_IPHONE

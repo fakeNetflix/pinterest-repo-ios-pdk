@@ -110,14 +110,14 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
     NSURL *pinitURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestAppPinItURLString, [params _PDK_queryStringValue]]];
 #if TARGET_OS_IPHONE
     if ([[UIApplication sharedApplication] canOpenURL:pinitURL]) {
-        [[UIApplication sharedApplication] openURL:pinitURL];
+        [PDKClient openURL:pinitURL];
     } else {
         //open web pinit url
         NSDictionary *webParams = @{@"url": [sourceURL absoluteString],
                                     @"media": [imageURL absoluteString],
                                     @"description": pinDescription};
         NSURL *pinitWebURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebPinItURLString, [webParams _PDK_queryStringValue]]];
-        [[UIApplication sharedApplication] openURL:pinitWebURL];
+        [PDKClient openURL:pinitWebURL];
     }
 #else
 #endif

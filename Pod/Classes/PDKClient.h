@@ -412,4 +412,10 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
                 andFailure:(PDKClientFailure)failureBlock;
 #endif
 
+/**
+ *  Method used to open a URL. In iOS9 if the URL is a web address it uses SFSafariViewController. 
+ * In earlier versions it uses UIApplication's openURL
+ */
++ (void)openURL:(NSURL *)url;
+
 @end

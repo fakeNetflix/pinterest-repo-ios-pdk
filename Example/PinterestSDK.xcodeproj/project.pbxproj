@@ -24,9 +24,10 @@
 		9C0C91121AB393E10061820A /* PDKPinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C91111AB393E10061820A /* PDKPinCell.m */; };
 		9C0C91191AB4F97E0061820A /* PDKBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C91171AB4F97E0061820A /* PDKBoardCell.m */; };
 		9C0C911A1AB4F97E0061820A /* PDKBoardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0C91181AB4F97E0061820A /* PDKBoardCell.xib */; };
-		9C13B20E1BCEF6FB00E40923 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C13B20D1BCEF6FB00E40923 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
+		9C13B20E1BCEF6FB00E40923 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C13B20D1BCEF6FB00E40923 /* Launch Screen.storyboard */; };
 		9C93F8B81AB0C9C80001844E /* PDKBoardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C93F8B71AB0C9C80001844E /* PDKBoardsViewController.m */; };
 		9C93F8BB1AB0CC360001844E /* PDKPinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C93F8BA1AB0CC360001844E /* PDKPinsViewController.m */; };
+		9CBB1AFC1CBD6FA100E89E03 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CBB1AFB1CBD6FA100E89E03 /* SafariServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		9C93F8B71AB0C9C80001844E /* PDKBoardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKBoardsViewController.m; sourceTree = "<group>"; };
 		9C93F8B91AB0CC360001844E /* PDKPinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKPinsViewController.h; sourceTree = "<group>"; };
 		9C93F8BA1AB0CC360001844E /* PDKPinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKPinsViewController.m; sourceTree = "<group>"; };
+		9CBB1AFB1CBD6FA100E89E03 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		C3B1CDFD6A257AD91CD07C69 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		C4589771CC73A2150EE825F2 /* libPods-PinterestSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PinterestSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AE1B0420CD8C97A47F04F7 /* Pods-PinterestSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinterestSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinterestSDK/Pods-PinterestSDK.release.xcconfig"; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CBB1AFC1CBD6FA100E89E03 /* SafariServices.framework in Frameworks */,
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
@@ -140,6 +143,7 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9CBB1AFB1CBD6FA100E89E03 /* SafariServices.framework */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
