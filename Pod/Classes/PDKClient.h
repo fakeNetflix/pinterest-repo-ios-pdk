@@ -192,6 +192,20 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
      withSuccess:(PDKClientSuccess)successBlock
       andFailure:(PDKClientFailure)failureBlock;
 
+/**
+ *  Makes a PATCH API request
+ *
+ *  @param path         The path to the endpoint
+ *  @param parameters   Any parameters that need to be sent to the endpoint
+ *  @param successBlock Called when the API call succeeds
+ *  @param failureBlock Called when the API call fails
+ */
+- (void)patchPath:(NSString *)path
+       parameters:(NSDictionary *)parameters
+      withSuccess:(PDKClientSuccess)successBlock
+       andFailure:(PDKClientFailure)failureBlock;
+
+
 #pragma mark - User Endpoints
 /**
  *  Get a PDKUser object for the currently authorized user
