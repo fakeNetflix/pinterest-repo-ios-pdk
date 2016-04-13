@@ -164,8 +164,12 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     if (cachedToken && cachedPermissions) {
         
         PDKClientFailure localFailureBlock = ^(NSError *error) {
-            [SSKeychain deletePasswordForService:PDKPinterestSDK account:PDKPinterestSDKUsername];
-            [weakSelf authenticateWithPermissions:permissions withSuccess:successBlock andFailure:failureBlock];
+            if (permissions != nil) {
+                [SSKeychain deletePasswordForService:PDKPinterestSDK account:PDKPinterestSDKUsername];
+                [weakSelf authenticateWithPermissions:permissions withSuccess:successBlock andFailure:failureBlock];
+            } else if (failureBlock) {
+                failureBlock(error);
+            }
         };
         
         [self inspectToken:cachedToken
