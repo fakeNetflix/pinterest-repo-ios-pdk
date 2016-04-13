@@ -63,6 +63,11 @@ typedef void (^PDKUnauthPinCreationFailure)(NSError *error);
 @property (nonatomic, strong, readonly) NSDictionary *metaData;
 
 /**
+ *  The source data for videos, including the title, URL, provider, author name, author URL and provider name.
+ */
+@property (nonatomic, strong, readonly) NSDictionary *attribution;
+
+/**
  *  Number of times this pin has been repinned
  */
 @property (nonatomic, assign, readonly) NSUInteger repins;

@@ -41,6 +41,7 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
         _board = [PDKBoard boardFromDictionary:dictionary[@"board"]];
         _creator = [PDKUser userFromDictionary:dictionary[@"creator"]];
         _metaData = dictionary[@"metadata"];
+        _attribution = dictionary[@"attribution"];
         
         _repins = [self.counts[@"repins"] unsignedIntegerValue];
         _likes = [self.counts[@"likes"] unsignedIntegerValue];
