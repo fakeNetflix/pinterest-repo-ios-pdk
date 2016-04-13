@@ -31,8 +31,8 @@
 
 - (NSArray *)imagesDictionariesSortedBySize
 {
-    NSMutableArray *imageDictionaries = [[self.images allValues] mutableCopy];
-    [imageDictionaries sortedArrayWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(NSDictionary *dictOne, NSDictionary *dictTwo) {
+    NSArray *imageDictionaries = [self.images allValues];
+    NSArray *sortedArray = [imageDictionaries sortedArrayWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(NSDictionary *dictOne, NSDictionary *dictTwo) {
         PDKImageInfo *infoOne = [PDKImageInfo imageFromDictionary:dictOne];
         PDKImageInfo *infoTwo = [PDKImageInfo imageFromDictionary:dictTwo];
         CGFloat sizeOne = infoOne.width * infoOne.height;
@@ -46,7 +46,7 @@
         }
     }];
     
-    return imageDictionaries;
+    return sortedArray;
 }
 
 - (PDKImageInfo *)smallestImage
