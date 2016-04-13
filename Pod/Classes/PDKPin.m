@@ -100,11 +100,11 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
     NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
     
     NSDictionary *params = @{@"app_id" : [PDKClient sharedInstance].appId,
-                             @"image_url" : [imageURL absoluteString],
-                             @"source_url" : [sourceURL absoluteString],
-                             @"app_name" : appName,
-                             @"suggested_board_name" : suggestedBoardName,
-                             @"description" : pinDescription,
+                             @"image_url" : [[imageURL absoluteString] _PDK_urlEncodedString],
+                             @"source_url" : [[sourceURL absoluteString] _PDK_urlEncodedString],
+                             @"app_name" : [appName _PDK_urlEncodedString],
+                             @"suggested_board_name" : [suggestedBoardName _PDK_urlEncodedString],
+                             @"description" : [pinDescription _PDK_urlEncodedString],
                              };
     
     // check to see if the Pinterest app is installed
@@ -114,9 +114,9 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
         [PDKClient openURL:pinitURL];
     } else {
         //open web pinit url
-        NSDictionary *webParams = @{@"url": [sourceURL absoluteString],
-                                    @"media": [imageURL absoluteString],
-                                    @"description": pinDescription};
+        NSDictionary *webParams = @{@"url": [[sourceURL absoluteString] _PDK_urlEncodedString],
+                                    @"media": [[imageURL absoluteString] _PDK_urlEncodedString],
+                                    @"description": [pinDescription _PDK_urlEncodedString]};
         NSURL *pinitWebURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebPinItURLString, [webParams _PDK_queryStringValue]]];
         [PDKClient openURL:pinitWebURL];
     }
