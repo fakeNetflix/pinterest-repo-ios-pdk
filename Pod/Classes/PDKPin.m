@@ -99,6 +99,7 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
     
     NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
     
+    // these params need to be double encoded because of the way they are decoded in the Pinterest client app.
     NSDictionary *params = @{@"app_id" : [PDKClient sharedInstance].appId,
                              @"image_url" : [[imageURL absoluteString] _PDK_urlEncodedString],
                              @"source_url" : [[sourceURL absoluteString] _PDK_urlEncodedString],
@@ -113,10 +114,10 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
     if ([[UIApplication sharedApplication] canOpenURL:pinitURL]) {
         [PDKClient openURL:pinitURL];
     } else {
-        //open web pinit url
-        NSDictionary *webParams = @{@"url": [[sourceURL absoluteString] _PDK_urlEncodedString],
-                                    @"media": [[imageURL absoluteString] _PDK_urlEncodedString],
-                                    @"description": [pinDescription _PDK_urlEncodedString]};
+        // These params do not need to be double-encoded because Safari is going to handle it.
+        NSDictionary *webParams = @{@"url": sourceURL,
+                                    @"media": imageURL,
+                                    @"description": pinDescription};
         NSURL *pinitWebURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebPinItURLString, [webParams _PDK_queryStringValue]]];
         [PDKClient openURL:pinitWebURL];
     }
