@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.ios.weak_frameworks = 'SafariServices'
 
-  s.public_header_files = 'Pod/Classes/**/*.h'
+  s.public_header_files = 'Pod/Classes/*.h'
   s.dependency 'AFNetworking', '~> 2.3'
   s.dependency 'SSKeychain'
 end
