@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "PinterestSDK"
-  s.version          = "1.0"
+  s.version          = "1.0.1"
   s.summary          = "An SDK for doing Pinteresting things."
   s.description      = <<-DESC
                        An SDK for interacting with Pinterest.
@@ -19,11 +19,10 @@ Pod::Spec.new do |s|
   s.author           = { "Ricky Cancro" => "ricky@pinterest.com", "Garrett Moon" => "garrett@pinterest.com" }
   s.source           = { :git => "https://github.com/pinterest/ios-pdk.git", :tag => s.version.to_s }
 
-  s.ios.deployment_target = '7.0'
+  s.ios.deployment_target = '7.1'
   s.osx.deployment_target = '10.9'
   s.requires_arc = true
-
-  s.source_files = 'Pod/Classes'
+  s.ios.weak_frameworks = 'SafariServices'
 
   s.public_header_files = 'Pod/Classes/**/*.h'
   s.dependency 'AFNetworking', '~> 2.3'

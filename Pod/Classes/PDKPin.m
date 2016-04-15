@@ -85,6 +85,7 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
     _pinFailureBlock = [pinFailureBlock copy];
 }
 
+#if TARGET_OS_IPHONE
 + (void)pinWithImageURL:(NSURL *)imageURL
                    link:(NSURL *)sourceURL
      suggestedBoardName:(NSString *)suggestedBoardName
@@ -92,7 +93,6 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
             withSuccess:(PDKUnauthPinCreationSuccess)pinSuccessBlock
              andFailure:(PDKUnauthPinCreationFailure)pinFailureBlock
 {
-    
     self.clientRedirectURLString = [NSString stringWithFormat:@"pdk%@", [PDKClient sharedInstance].appId];
     self.pinSuccessBlock = pinSuccessBlock;
     self.pinFailureBlock = pinFailureBlock;
@@ -110,7 +110,6 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
     
     // check to see if the Pinterest app is installed
     NSURL *pinitURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestAppPinItURLString, [params _PDK_queryStringValue]]];
-#if TARGET_OS_IPHONE
     if ([[UIApplication sharedApplication] canOpenURL:pinitURL]) {
         [PDKClient openURL:pinitURL];
     } else {
@@ -121,9 +120,8 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
         NSURL *pinitWebURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebPinItURLString, [webParams _PDK_queryStringValue]]];
         [PDKClient openURL:pinitWebURL];
     }
-#else
-#endif
 }
+#endif
 
 + (void)callUnauthSuccess
 {
