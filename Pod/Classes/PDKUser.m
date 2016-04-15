@@ -44,4 +44,16 @@
     return [[PDKUser alloc] initWithDictionary:dictionary];
 }
 
++ (NSSet *)allFields
+{
+    return [NSSet setWithArray:@[@"id",
+                                 @"username",
+                                 @"first_name",
+                                 @"last_name",
+                                 @"bio",
+                                 @"created_at",
+                                 @"counts",
+                                 @"image"]];
+}
+
 @end

@@ -69,4 +69,9 @@
     return imageInfo;
 }
 
++ (NSSet *)allFields
+{
+    return [NSSet set];
+}
+
 @end

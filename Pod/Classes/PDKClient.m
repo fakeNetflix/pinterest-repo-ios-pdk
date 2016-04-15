@@ -141,7 +141,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
 // authentication
 
 - (void)silentlyAuthenticateWithSuccess:(PDKClientSuccess)successBlock
-                                 andFailure:(PDKClientFailure)failureBlock;
+                             andFailure:(PDKClientFailure)failureBlock
 {
     [self authenticateWithPermissions:nil silent:YES withSuccess:successBlock andFailure:failureBlock];
 }
@@ -180,15 +180,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
                            weakSelf.authorized = YES;
                            weakSelf.oauthToken = cachedToken;
                            validCachedCredentials = YES;
-                           NSSet *fields = [NSSet setWithArray:@[@"id",
-                                                                 @"username",
-                                                                 @"first_name",
-                                                                 @"last_name",
-                                                                 @"bio",
-                                                                 @"created_at",
-                                                                 @"counts",
-                                                                 @"image"]];
-                           [[PDKClient sharedInstance] getAuthorizedUserFields:fields
+                           [[PDKClient sharedInstance] getAuthorizedUserFields:[PDKUser allFields]
                                                                    withSuccess:successBlock
                                                                     andFailure:failureBlock];
                        }
@@ -296,15 +288,14 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
                            weakSelf.oauthToken = oauthToken;
                            [SSKeychain setPassword:weakSelf.oauthToken forService:PDKPinterestSDK account:PDKPinterestSDKUsername];
                            
-                           [[PDKClient sharedInstance] getPath:@"me/"
-                                                    parameters:nil
-                                                   withSuccess:^(PDKResponseObject *responseObject) {
-                                                       [PDKClient sharedInstance].authorized = YES;
-                                                       if (weakSelf.authenticationSuccessBlock) {
-                                                           weakSelf.authenticationSuccessBlock(responseObject);
-                                                           weakSelf.authenticationSuccessBlock = nil;
-                                                       }
-                                                   } andFailure:localFailureBlock];
+                           [[PDKClient sharedInstance] getAuthorizedUserFields:[PDKUser allFields]
+                                                                   withSuccess:^(PDKResponseObject *responseObject) {
+                                                                       [PDKClient sharedInstance].authorized = YES;
+                                                                       if (weakSelf.authenticationSuccessBlock) {
+                                                                           weakSelf.authenticationSuccessBlock(responseObject);
+                                                                           weakSelf.authenticationSuccessBlock = nil;
+                                                                       }
+                                                                   } andFailure:localFailureBlock];
                            
                        } andFailure:localFailureBlock];
                 

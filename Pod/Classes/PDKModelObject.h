@@ -64,4 +64,11 @@
  */
 - (PDKImageInfo *)largestImage;
 
+/**
+ *  Returns a set of all the fields for this model object
+ *
+ *  @return set of all fields in this object
+ */
++ (NSSet *)allFields;
+
 @end

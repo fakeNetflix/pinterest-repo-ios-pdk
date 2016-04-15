@@ -41,4 +41,16 @@
     return [[PDKBoard alloc] initWithDictionary:dictionary];
 }
 
++ (NSSet *)allFields
+{
+    return [NSSet setWithArray:@[@"id",
+                                 @"name",
+                                 @"url",
+                                 @"description",
+                                 @"creator",
+                                 @"created_at",
+                                 @"counts",
+                                 @"image"]];
+}
+
 @end
