@@ -91,7 +91,6 @@ typedef void (^PDKUnauthPinCreationFailure)(NSError *error);
  */
 + (instancetype)pinFromDictionary:(NSDictionary *)dictionary;
 
-#if TARGET_OS_IPHONE
 /**
  *  Creates a pin without obtaining an oauth token
  *
@@ -108,7 +107,6 @@ typedef void (^PDKUnauthPinCreationFailure)(NSError *error);
                    note:(NSString *)pinDescription
             withSuccess:(PDKUnauthPinCreationSuccess)pinSuccessBlock
              andFailure:(PDKUnauthPinCreationFailure)pinFailureBlock;
-#endif
 
 /**
  *  Used internally in PDKClient's handleURL: to handle the unauth flow.

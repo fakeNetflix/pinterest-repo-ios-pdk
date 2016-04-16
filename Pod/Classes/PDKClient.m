@@ -1,9 +1,6 @@
 //  Copyright (c) 2015 Pinterest. All rights reserved.
 //  Created by Ricky Cancro on 1/28/15.
 
-#if TARGET_OS_IPHONE
-@import UIKit;
-#endif
 #import "PDKClient.h"
 
 #import "PDKBoard.h"
@@ -12,8 +9,9 @@
 #import "PDKResponseObject.h"
 #import "PDKUser.h"
 
-#import <SafariServices/SafariServices.h>
 #import <SSKeychain/SSKeychain.h>
+@import UIKit;
+@import SafariServices;
 
 NSString * const PDKClientReadPublicPermissions = @"read_public";
 NSString * const PDKClientWritePublicPermissions = @"write_public";
@@ -209,7 +207,6 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
         // check to see if the Pinterest app is installed
         NSURL *oauthURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestAppOAuthURLString, [params _PDK_queryStringValue]]];
         
-#if TARGET_OS_IPHONE
         if ([[UIApplication sharedApplication] canOpenURL:oauthURL]) {
             [PDKClient openURL:oauthURL];
         } else {
@@ -224,18 +221,6 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
             oauthURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebOAuthURLString, [params _PDK_queryStringValue]]];
             [PDKClient openURL:oauthURL];
         }
-#else
-        NSString *redirectURL = [NSString stringWithFormat:@"pdk%@://", self.appId];
-        params = @{@"client_id" : self.appId,
-                   @"scope" : permissionsString,
-                   @"redirect_uri" : redirectURL,
-                   @"response_type": @"token",
-                   };
-        
-        // open the web oauth
-        oauthURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebOAuthURLString, [params _PDK_queryStringValue]]];
-        [PDKClient openURL:oauthURL];
-#endif
     } else if (silent && failureBlock) {
         // silent was yes, but we did not have a cached token. that counts as a failure.
         failureBlock(nil);
@@ -254,7 +239,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     NSString *urlScheme = [url scheme];
     if ([urlScheme isEqualToString:self.clientRedirectURLString]) {
         // if we came here via SFSafariViewController then we need to dismiss the VC
-        if ([SFSafariViewController class]) {
+        if (NSClassFromString(@"SFSafariViewController") != nil) {
             UIViewController *mainViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
             if ([[mainViewController presentedViewController] isKindOfClass:[SFSafariViewController class]]) {
                 [mainViewController dismissViewControllerAnimated:YES completion:nil];
@@ -647,7 +632,6 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     }
 }
 
-#if TARGET_OS_IPHONE
 - (void)createPinWithImage:(UIImage *)image
                       link:(NSURL *)link
                    onBoard:(NSString *)boardId
@@ -704,7 +688,5 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     [self.operationQueue addOperation:operation];
     
 }
-#endif
-
 
 @end

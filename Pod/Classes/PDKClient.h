@@ -405,7 +405,6 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
       withSuccess:(PDKClientSuccess)successBlock
        andFailure:(PDKClientFailure)failureBlock;
 
-#if TARGET_OS_IPHONE
 /**
  *  Creates a new pin from a UIImage
  *
@@ -424,7 +423,6 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
                   progress:(PDKPinUploadProgress)progressBlock
                withSuccess:(PDKClientSuccess)successBlock
                 andFailure:(PDKClientFailure)failureBlock;
-#endif
 
 /**
  *  Method used to open a URL. In iOS9 if the URL is a web address it uses SFSafariViewController. 

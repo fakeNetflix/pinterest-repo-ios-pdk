@@ -85,7 +85,6 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
     _pinFailureBlock = [pinFailureBlock copy];
 }
 
-#if TARGET_OS_IPHONE
 + (void)pinWithImageURL:(NSURL *)imageURL
                    link:(NSURL *)sourceURL
      suggestedBoardName:(NSString *)suggestedBoardName
@@ -121,7 +120,6 @@ static NSString * const kPDKPinterestWebPinItURLString = @"http://www.pinterest.
         [PDKClient openURL:pinitWebURL];
     }
 }
-#endif
 
 + (void)callUnauthSuccess
 {
