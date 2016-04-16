@@ -20,11 +20,12 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/pinterest/ios-pdk.git", :tag => s.version.to_s }
 
   s.ios.deployment_target = '7.1'
-  s.osx.deployment_target = '10.9'
   s.requires_arc = true
-  s.ios.weak_frameworks = 'SafariServices'
 
-  s.public_header_files = 'Pod/Classes/*.h'
+  s.weak_frameworks = 'SafariServices'
+
+  s.source_files = 'Pod/Classes/*.{h,m}'
+
   s.dependency 'AFNetworking', '~> 2.3'
   s.dependency 'SSKeychain'
 end
