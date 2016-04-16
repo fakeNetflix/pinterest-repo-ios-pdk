@@ -57,7 +57,7 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
  *  methods like getPath:parameters:success:failure:) or by using convience methods
  *  (like getPinsForBoard:success:failure)
  */
-@interface PDKClient : AFHTTPRequestOperationManager
+@interface PDKClient : AFHTTPSessionManager
 
 /**
  *  The assigned appId that is used to make API requests

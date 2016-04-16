@@ -300,6 +300,21 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     return handled;
 }
 
+typedef void (^PDKClientDefaultSuccessBlock)(PDKClientSuccess successBlock, NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject, NSDictionary *parameters, NSString *path);
+PDKClientDefaultSuccessBlock gPDKClientDefaultSuccessBlock = ^(PDKClientSuccess successBlock, NSURLSessionDataTask *task, id responseObject, NSDictionary *parameters, NSString *path) {
+    if (successBlock && [responseObject isKindOfClass:[NSDictionary class]]) {
+        PDKResponseObject *response = [[PDKResponseObject alloc] initWithDictionary:(NSDictionary *)responseObject response:(NSHTTPURLResponse *)[task response] path:path parameters:parameters];
+        successBlock(response);
+    }
+};
+
+typedef void (^PDKClientDefaultFailureBlock)(PDKClientFailure failureBlock, NSError *error);
+PDKClientDefaultFailureBlock gPDKClientDefaultFailureBlock = ^(PDKClientFailure failureBlock, NSError *error) {
+    if (failureBlock) {
+        failureBlock(error);
+    }
+};
+
 #pragma mark - Endpoints
 
 - (void)getPath:(NSString *)path
@@ -307,20 +322,13 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     withSuccess:(PDKClientSuccess)successBlock
      andFailure:(PDKClientFailure)failureBlock;
 {
-    NSMutableURLRequest *request = [[self requestWithMethod:@"GET" path:path parameters:parameters] mutableCopy];
+    NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
+    [self GET:urlString parameters:[self signParameters:parameters] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        gPDKClientDefaultFailureBlock(failureBlock, error);
+    }];
     
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if (successBlock && [responseObject isKindOfClass:[NSDictionary class]]) {
-                                                                              PDKResponseObject *response = [[PDKResponseObject alloc] initWithDictionary:(NSDictionary *)responseObject response:[operation response] path:path parameters:parameters];
-                                                                              successBlock(response);
-                                                                          }
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          if (failureBlock) {
-                                                                              failureBlock(error);
-                                                                          }
-                                                                      }];
-    [self.operationQueue addOperation:operation];
 }
 
 - (void)postPath:(NSString *)path
@@ -328,19 +336,12 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
      withSuccess:(PDKClientSuccess)successBlock
       andFailure:(PDKClientFailure)failureBlock;
 {
-    NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if (successBlock && [responseObject isKindOfClass:[NSDictionary class]]) {
-                                                                              PDKResponseObject *response = [[PDKResponseObject alloc] initWithDictionary:(NSDictionary *)responseObject response:operation.response];
-                                                                              successBlock(response);
-                                                                          }
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          if (failureBlock) {
-                                                                              failureBlock(error);
-                                                                          }
-                                                                      }];
-    [self.operationQueue addOperation:operation];
+    NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
+    [self POST:urlString parameters:[self signParameters:parameters] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        gPDKClientDefaultFailureBlock(failureBlock, error);
+    }];
 }
 
 - (void)putPath:(NSString *)path
@@ -348,19 +349,12 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     withSuccess:(PDKClientSuccess)successBlock
      andFailure:(PDKClientFailure)failureBlock;
 {
-    NSURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:parameters];
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if (successBlock && [responseObject isKindOfClass:[NSDictionary class]]) {
-                                                                              PDKResponseObject *response = [[PDKResponseObject alloc] initWithDictionary:(NSDictionary *)responseObject response:operation.response];
-                                                                              successBlock(response);
-                                                                          }
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          if (failureBlock) {
-                                                                              failureBlock(error);
-                                                                          }
-                                                                      }];
-    [self.operationQueue addOperation:operation];
+    NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
+    [self PUT:urlString parameters:[self signParameters:parameters] success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        gPDKClientDefaultFailureBlock(failureBlock, error);
+    }];
 }
 
 - (void)patchPath:(NSString *)path
@@ -368,20 +362,12 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     withSuccess:(PDKClientSuccess)successBlock
      andFailure:(PDKClientFailure)failureBlock;
 {
-    NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:path parameters:parameters];
-        
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if (successBlock && [responseObject isKindOfClass:[NSDictionary class]]) {
-                                                                              PDKResponseObject *response = [[PDKResponseObject alloc] initWithDictionary:(NSDictionary *)responseObject response:operation.response];
-                                                                              successBlock(response);
-                                                                          }
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          if (failureBlock) {
-                                                                              failureBlock(error);
-                                                                          }
-                                                                      }];
-    [self.operationQueue addOperation:operation];
+    NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
+    [self PATCH:urlString parameters:[self signParameters:parameters] success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        gPDKClientDefaultFailureBlock(failureBlock, error);
+    }];
 }
 
 - (void)deletePath:(NSString *)path
@@ -389,64 +375,47 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
        withSuccess:(PDKClientSuccess)successBlock
         andFailure:(PDKClientFailure)failureBlock;
 {
-    NSURLRequest *request = [self requestWithMethod:@"DELETE" path:path parameters:parameters];
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if (successBlock && [responseObject isKindOfClass:[NSDictionary class]]) {
-                                                                              PDKResponseObject *response = [[PDKResponseObject alloc] initWithDictionary:(NSDictionary *)responseObject response:operation.response];
-                                                                              successBlock(response);
-                                                                          }
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          if (failureBlock) {
-                                                                              failureBlock(error);
-                                                                          }
-                                                                      }];
-    [self.operationQueue addOperation:operation];
+    NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
+    [self DELETE:urlString parameters:[self signParameters:parameters] success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        gPDKClientDefaultFailureBlock(failureBlock, error);
+    }];
 }
 
+#pragma mark - AFHTTPSessionManager overrides
 
+- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
+                               uploadProgress:(nullable void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                             downloadProgress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgressBlock
+                            completionHandler:(nullable void (^)(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error))completionHandler {
+    
+    NSMutableURLRequest *mutableRequest = [request mutableCopy];
+    [mutableRequest setHTTPShouldHandleCookies:YES];
+    [mutableRequest setValue:@"no-cache, no-store" forHTTPHeaderField:@"Cache-Control"];
+    
+    return [super dataTaskWithRequest:mutableRequest uploadProgress:uploadProgressBlock downloadProgress:downloadProgressBlock completionHandler:completionHandler];
+}
 
-- (NSMutableURLRequest *)requestWithMethod:(NSString *)method
-                                      path:(NSString *)URLString
-                                parameters:(NSDictionary *)parameters
+- (NSURLSessionUploadTask *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
+                                                 progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                                        completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
-    NSString *urlPath = URLString;
+    NSMutableURLRequest *mutableRequest = [request mutableCopy];
+    [mutableRequest setHTTPShouldHandleCookies:YES];
+    return [super uploadTaskWithStreamedRequest:mutableRequest progress:uploadProgressBlock completionHandler:completionHandler];
+}
+
+#pragma mark - Helpers
+
+- (NSDictionary *)signParameters:(NSDictionary *)parameters
+{
     NSMutableDictionary *signedParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
     
     if (self.oauthToken && signedParameters[@"access_token"] == nil) {
         signedParameters[@"access_token"] = self.oauthToken;
     }
-    
-    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:method
-                                                                   URLString:[[NSURL URLWithString:urlPath
-                                                                                     relativeToURL:self.baseURL] absoluteString]
-                                                                  parameters:signedParameters
-                                                                       error:nil];
-    
-    [request setHTTPShouldHandleCookies:YES];
-    [request setValue:@"no-cache, no-store" forHTTPHeaderField:@"Cache-Control"];
-    
-    return request;
-}
-
-- (NSMutableURLRequest *)multipartFormRequestWithMethod:(NSString *)method
-                                                   path:(NSString *)URLString
-                                             parameters:(NSDictionary *)parameters
-                              constructingBodyWithBlock:( void (^)(id <AFMultipartFormData>) )block
-{
-    NSAssert(self.oauthToken, @"self.oauthToken cannot be nil");
-    
-    NSMutableDictionary *signedParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
-    signedParameters[@"access_token"] = self.oauthToken;
-    
-    NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:method
-                                                                                URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
-                                                                               parameters:signedParameters
-                                                                constructingBodyWithBlock:block
-                                                                                    error:nil];
-    
-    [request setHTTPShouldHandleCookies:YES];
-    return request;
+    return signedParameters;
 }
 
 #pragma mark - User Endpoints
@@ -640,26 +609,6 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
                withSuccess:(PDKClientSuccess)successBlock
                 andFailure:(PDKClientFailure)failureBlock;
 {
-    // Construction Block
-    void (^requestConstruction)(id <AFMultipartFormData>) = ^(id <AFMultipartFormData> formData)
-    {
-        NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
-        [formData appendPartWithFileData:imageData
-                                    name:@"image"
-                                fileName:@"myphoto.jpg"
-                                mimeType:@"image/jpeg"];
-    };
-    
-    void (^requestProgress)(NSUInteger, long long, long long) = ^(NSUInteger bytesWritten,
-                                                                  long long totalBytesWritten,
-                                                                  long long totalBytesExpectedToWrite)
-    {
-        if (progressBlock) {
-            float percentComplete = totalBytesWritten / (float)totalBytesExpectedToWrite;
-            progressBlock(percentComplete);
-        }
-    };
-    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"board"] = boardId;
     parameters[@"note"] = pinDescription;
@@ -667,25 +616,24 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
         parameters[@"link"] = link;
     }
     
-    NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST"
-                                                            path:@"pins/"
-                                                      parameters:parameters
-                                       constructingBodyWithBlock:requestConstruction];
-    
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if (successBlock && [responseObject isKindOfClass:[NSDictionary class]]) {
-                                                                              PDKResponseObject *response = [[PDKResponseObject alloc] initWithDictionary:(NSDictionary *)responseObject response:operation.response];
-                                                                              successBlock(response);
-                                                                          }
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          if (failureBlock) {
-                                                                              failureBlock(error);
-                                                                          }
-                                                                      }];
-    
-    [operation setUploadProgressBlock:requestProgress];
-    [self.operationQueue addOperation:operation];
+    NSString *path = @"pins/";
+    NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
+    [self POST:urlString parameters:[self signParameters:parameters] constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+        [formData appendPartWithFileData:imageData
+                                    name:@"image"
+                                fileName:@"myphoto.jpg"
+                                mimeType:@"image/jpeg"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        if (progressBlock && [uploadProgress totalUnitCount] > 0) {
+            CGFloat percentComplete = (CGFloat)[uploadProgress completedUnitCount]/(CGFloat)[uploadProgress totalUnitCount];
+            progressBlock(percentComplete);
+        }
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        gPDKClientDefaultFailureBlock(failureBlock, error);
+    }];
     
 }
 
