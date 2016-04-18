@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "PinterestSDK"
-  s.version          = "1.0.1"
+  s.version          = "1.0.2"
   s.summary          = "An SDK for doing Pinteresting things."
   s.description      = <<-DESC
                        An SDK for interacting with Pinterest.
