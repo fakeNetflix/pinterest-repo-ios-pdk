@@ -300,20 +300,22 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     return handled;
 }
 
-typedef void (^PDKClientDefaultSuccessBlock)(PDKClientSuccess successBlock, NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject, NSDictionary *parameters, NSString *path);
-PDKClientDefaultSuccessBlock gPDKClientDefaultSuccessBlock = ^(PDKClientSuccess successBlock, NSURLSessionDataTask *task, id responseObject, NSDictionary *parameters, NSString *path) {
+static void defaultSuccessAction(PDKClientSuccess successBlock, NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject, NSDictionary *parameters, NSString *path);
+static void defaultSuccessAction(PDKClientSuccess successBlock, NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject, NSDictionary *parameters, NSString *path)
+{
     if (successBlock && [responseObject isKindOfClass:[NSDictionary class]]) {
         PDKResponseObject *response = [[PDKResponseObject alloc] initWithDictionary:(NSDictionary *)responseObject response:(NSHTTPURLResponse *)[task response] path:path parameters:parameters];
         successBlock(response);
     }
-};
+}
 
-typedef void (^PDKClientDefaultFailureBlock)(PDKClientFailure failureBlock, NSError *error);
-PDKClientDefaultFailureBlock gPDKClientDefaultFailureBlock = ^(PDKClientFailure failureBlock, NSError *error) {
+static void defaultFailureAction(PDKClientFailure failureBlock, NSError *error);
+static void defaultFailureAction(PDKClientFailure failureBlock, NSError *error)
+{
     if (failureBlock) {
         failureBlock(error);
     }
-};
+}
 
 #pragma mark - Endpoints
 
@@ -324,9 +326,9 @@ PDKClientDefaultFailureBlock gPDKClientDefaultFailureBlock = ^(PDKClientFailure 
 {
     NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
     [self GET:urlString parameters:[self signParameters:parameters] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+        defaultSuccessAction(successBlock, task, responseObject, parameters, path);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        gPDKClientDefaultFailureBlock(failureBlock, error);
+        defaultFailureAction(failureBlock, error);
     }];
     
 }
@@ -338,9 +340,9 @@ PDKClientDefaultFailureBlock gPDKClientDefaultFailureBlock = ^(PDKClientFailure 
 {
     NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
     [self POST:urlString parameters:[self signParameters:parameters] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+        defaultSuccessAction(successBlock, task, responseObject, parameters, path);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        gPDKClientDefaultFailureBlock(failureBlock, error);
+        defaultFailureAction(failureBlock, error);
     }];
 }
 
@@ -351,9 +353,9 @@ PDKClientDefaultFailureBlock gPDKClientDefaultFailureBlock = ^(PDKClientFailure 
 {
     NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
     [self PUT:urlString parameters:[self signParameters:parameters] success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+        defaultSuccessAction(successBlock, task, responseObject, parameters, path);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        gPDKClientDefaultFailureBlock(failureBlock, error);
+        defaultFailureAction(failureBlock, error);
     }];
 }
 
@@ -364,9 +366,9 @@ PDKClientDefaultFailureBlock gPDKClientDefaultFailureBlock = ^(PDKClientFailure 
 {
     NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
     [self PATCH:urlString parameters:[self signParameters:parameters] success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+        defaultSuccessAction(successBlock, task, responseObject, parameters, path);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        gPDKClientDefaultFailureBlock(failureBlock, error);
+        defaultFailureAction(failureBlock, error);
     }];
 }
 
@@ -377,9 +379,9 @@ PDKClientDefaultFailureBlock gPDKClientDefaultFailureBlock = ^(PDKClientFailure 
 {
     NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
     [self DELETE:urlString parameters:[self signParameters:parameters] success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+        defaultSuccessAction(successBlock, task, responseObject, parameters, path);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        gPDKClientDefaultFailureBlock(failureBlock, error);
+        defaultFailureAction(failureBlock, error);
     }];
 }
 
@@ -630,9 +632,9 @@ PDKClientDefaultFailureBlock gPDKClientDefaultFailureBlock = ^(PDKClientFailure 
             progressBlock(percentComplete);
         }
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        gPDKClientDefaultSuccessBlock(successBlock, task, responseObject, parameters, path);
+        defaultSuccessAction(successBlock, task, responseObject, parameters, path);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        gPDKClientDefaultFailureBlock(failureBlock, error);
+        defaultFailureAction(failureBlock, error);
     }];
     
 }
