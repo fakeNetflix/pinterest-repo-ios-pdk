@@ -31,6 +31,12 @@ typedef void (^PDKResponseObjectLoadedFailure)(NSError *error);
 @property (nonatomic, strong) NSDictionary *parsedJSONDictionary;
 
 /**
+ *  Rate limit information based on the call that was made.
+ */
+@property (nonatomic, assign) NSInteger rateLimit;
+@property (nonatomic, assign) NSInteger rateRemaining;
+
+/**
  *  For internal use only;
  */
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary response:(NSHTTPURLResponse *)response path:(NSString *)path parameters:(NSDictionary *)parameters;
