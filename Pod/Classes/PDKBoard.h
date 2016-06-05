@@ -19,6 +19,11 @@
 @property (nonatomic, copy, readonly) NSString *name;
 
 /**
+ *  The URL of the board
+ */
+@property (nonatomic, copy, readonly) NSURL *url;
+
+/**
  *  Description of the board
  */
 @property (nonatomic, copy, readonly) NSString *descriptionText;
