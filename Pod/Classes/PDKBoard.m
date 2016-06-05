@@ -10,6 +10,7 @@
 @interface PDKBoard()
 
 @property (nonatomic, copy, readwrite) NSString *name;
+@property (nonatomic, copy, readwrite) NSURL *url;
 @property (nonatomic, copy, readwrite) NSString *descriptionText;
 @property (nonatomic, strong, readwrite) PDKUser *creator;
 
@@ -26,6 +27,7 @@
     self = [super initWithDictionary:dictionary];
     if (self) {
         _name = dictionary[@"name"];
+        _url = [NSURL URLWithString:dictionary[@"url"]];
         _descriptionText = dictionary[@"description"];
         _creator = [PDKUser userFromDictionary:dictionary[@"creator"]];
         
