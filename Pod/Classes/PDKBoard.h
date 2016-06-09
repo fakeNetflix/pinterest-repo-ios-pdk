@@ -34,6 +34,11 @@
 @property (nonatomic, strong, readonly) PDKUser *creator;
 
 /**
+  * The board's privacy setting: "public" or "private"
+  */
+@property (nonatomic, strong, readonly) NSString *privacy;
+
+/**
  *  Number of users that follow this board
  */
 @property (nonatomic, assign, readonly) NSUInteger followers;

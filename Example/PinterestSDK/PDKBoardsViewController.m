@@ -41,7 +41,7 @@
     self.navigationItem.title = NSLocalizedString(@"Boards", nil);
     
     __weak PDKBoardsViewController *weakSelf = self;
-    [[PDKClient sharedInstance] getAuthenticatedUserBoardsWithFields:[NSSet setWithArray:@[@"id", @"image", @"description", @"name"]]
+    [[PDKClient sharedInstance] getAuthenticatedUserBoardsWithFields:[NSSet setWithArray:@[@"id", @"image", @"description", @"name", @"privacy"]]
                                                              success:^(PDKResponseObject *responseObject) {
                                                                  weakSelf.currentResponseObject = responseObject;
                                                                  weakSelf.boards = [responseObject boards];

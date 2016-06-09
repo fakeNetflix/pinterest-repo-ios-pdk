@@ -65,12 +65,17 @@
     self.boardDescriptionLabel.text = board.descriptionText;
     self.boardNameLabel.text = board.name;
     [self.boardImageView setImageWithURL:[board smallestImage].url];
+
+    if ([board.privacy isEqualToString:@"private"]) {
+        self.lockImageView.image = [UIImage imageNamed:@"Lock"];
+    }
 }
 
 - (void)prepareForReuse
 {
     [super prepareForReuse];
     self.boardImageView.image = nil;
+    self.lockImageView.image = nil;
     [self showSpinner:NO withPercentage:0];
 }
 

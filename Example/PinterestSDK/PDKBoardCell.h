@@ -16,6 +16,7 @@ typedef void (^PDKBoardCellActionBlock)();
 @property (nonatomic, strong) IBOutlet UILabel *percentageLabel;
 @property (nonatomic, strong) IBOutlet UILabel *boardNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *boardDescriptionLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *lockImageView;
 
 @property (nonatomic, copy) PDKBoardCellActionBlock addPinFromURLBlock;
 @property (nonatomic, copy) PDKBoardCellActionBlock addPinFromImageBlock;

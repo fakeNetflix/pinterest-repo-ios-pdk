@@ -13,6 +13,7 @@
 @property (nonatomic, copy, readwrite) NSURL *url;
 @property (nonatomic, copy, readwrite) NSString *descriptionText;
 @property (nonatomic, strong, readwrite) PDKUser *creator;
+@property (nonatomic, strong, readwrite) NSString *privacy;
 
 @property (nonatomic, assign, readwrite) NSUInteger followers;
 @property (nonatomic, assign, readwrite) NSUInteger pins;
@@ -30,7 +31,8 @@
         _url = [NSURL URLWithString:dictionary[@"url"]];
         _descriptionText = dictionary[@"description"];
         _creator = [PDKUser userFromDictionary:dictionary[@"creator"]];
-        
+        _privacy = dictionary[@"privacy"];
+
         _followers = [self.counts[@"followers"] unsignedIntegerValue];
         _pins = [self.counts[@"pins"] unsignedIntegerValue];
         _collaborators = [self.counts[@"collaborators"] unsignedIntegerValue];
@@ -52,7 +54,8 @@
                                  @"creator",
                                  @"created_at",
                                  @"counts",
-                                 @"image"]];
+                                 @"image",
+                                 @"privacy"]];
 }
 
 @end
