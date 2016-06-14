@@ -15,8 +15,6 @@
 
 NSString * const PDKClientReadPublicPermissions = @"read_public";
 NSString * const PDKClientWritePublicPermissions = @"write_public";
-NSString * const PDKClientReadPrivatePermissions = @"read_private";
-NSString * const PDKClientWritePrivatePermissions = @"write_private";
 NSString * const PDKClientReadRelationshipsPermissions = @"read_relationships";
 NSString * const PDKClientWriteRelationshipsPermissions = @"write_relationships";
 
