@@ -9,8 +9,6 @@
  */
 extern NSString * const PDKClientReadPublicPermissions;
 extern NSString * const PDKClientWritePublicPermissions;
-extern NSString * const PDKClientReadPrivatePermissions;
-extern NSString * const PDKClientWritePrivatePermissions;
 extern NSString * const PDKClientReadRelationshipsPermissions;
 extern NSString * const PDKClientWriteRelationshipsPermissions;
 

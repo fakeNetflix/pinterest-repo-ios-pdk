@@ -98,8 +98,6 @@
     __weak PDKViewController *weakSelf = self;
     [[PDKClient sharedInstance] authenticateWithPermissions:@[PDKClientReadPublicPermissions,
                                                               PDKClientWritePublicPermissions,
-                                                              PDKClientReadPrivatePermissions,
-                                                              PDKClientWritePrivatePermissions,
                                                               PDKClientReadRelationshipsPermissions,
                                                               PDKClientWriteRelationshipsPermissions]
                                                 withSuccess:^(PDKResponseObject *responseObject)
