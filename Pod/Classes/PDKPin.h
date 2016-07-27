@@ -98,6 +98,7 @@ typedef void (^PDKUnauthPinCreationFailure)(NSError *error);
  *  @param sourceURL          The URL to the source of the pin
  *  @param suggestedBoardName A suggested name of a board to pin to
  *  @param pinDescription     The description of the pin
+ *  @param presentingViewController The ViewController the SafariViewController (if available) will present from if the Pinterest app is not installed. If nil, an attempt will be made to automatically determine the proper presenting view controller.
  *  @param successBlock Called when the API call succeeds
  *  @param failureBlock Called when the API call fails
  */
@@ -105,6 +106,7 @@ typedef void (^PDKUnauthPinCreationFailure)(NSError *error);
                    link:(NSURL *)sourceURL
      suggestedBoardName:(NSString *)suggestedBoardName
                    note:(NSString *)pinDescription
+     fromViewController:(UIViewController *)presentingViewController
             withSuccess:(PDKUnauthPinCreationSuccess)pinSuccessBlock
              andFailure:(PDKUnauthPinCreationFailure)pinFailureBlock;
 
