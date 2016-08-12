@@ -100,10 +100,12 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
  *  a user's cached token is still valid, try silentlyAuthenticateWithSuccess:andFailure:.
  *
  *  @param permissions  List of permissions to request from the user's Pinterest account
+ *  @param presentingViewController The ViewController the SafariViewController (if available) will present from if the Pinterest app is not installed. If nil, an attempt will be made to automatically determine the proper presenting view controller.
  *  @param successBlock called when the API request succeeds
  *  @param failureBlock called when the API request fails
  */
 - (void)authenticateWithPermissions:(NSArray *)permissions
+                 fromViewController:(UIViewController *)presentingViewController
                         withSuccess:(PDKClientSuccess)successBlock
                          andFailure:(PDKClientFailure)failureBlock;
 
@@ -112,11 +114,13 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
  *  property. If there is no cached oauth token this method will call the failure block and do 
  *  nothing else (i.e., no app switching to authenticate). 
  *
+ *  @param presentingViewController The ViewController the SafariViewController (if available) will present from if the Pinterest app is not installed. If nil, an attempt will be made to automatically determine the proper presenting view controller.
  *  @param successBlock called if the cached token can be used to authenticate
  *  @param failureBlock called if there is no cached token
  */
-- (void)silentlyAuthenticateWithSuccess:(PDKClientSuccess)successBlock
-                                 andFailure:(PDKClientFailure)failureBlock;
+- (void)silentlyAuthenticatefromViewController:(UIViewController *)presentingViewController
+                                   WithSuccess:(PDKClientSuccess)successBlock
+                                    andFailure:(PDKClientFailure)failureBlock;
 
 /**
  *  After the user authorizes his/her Pinterest account, control switches back to the
@@ -423,9 +427,9 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
                 andFailure:(PDKClientFailure)failureBlock;
 
 /**
- *  Method used to open a URL. In iOS9 if the URL is a web address it uses SFSafariViewController. 
+ *  Method used to open a URL. If the URL is a web address, we try to present a SFSafariViewController from the presentingViewController.
  * In earlier versions it uses UIApplication's openURL
  */
-+ (void)openURL:(NSURL *)url;
++ (void)openURL:(NSURL *)url fromViewController:(UIViewController *)presentingViewController;
 
 @end

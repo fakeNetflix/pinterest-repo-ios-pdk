@@ -37,6 +37,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
 @property (nonatomic, assign, readwrite) BOOL authorized;
 @property (nonatomic, copy) PDKClientSuccess authenticationSuccessBlock;
 @property (nonatomic, copy) PDKClientFailure authenticationFailureBlock;
+@property (nonatomic) UIViewController *safariViewController;
 
 @end
 
@@ -136,19 +137,21 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
 
 // authentication
 
-- (void)silentlyAuthenticateWithSuccess:(PDKClientSuccess)successBlock
-                             andFailure:(PDKClientFailure)failureBlock
+- (void)silentlyAuthenticatefromViewController:(UIViewController *)presentingViewController
+                                   WithSuccess:(PDKClientSuccess)successBlock
+                                    andFailure:(PDKClientFailure)failureBlock
 {
-    [self authenticateWithPermissions:nil silent:YES withSuccess:successBlock andFailure:failureBlock];
+    [self authenticateWithPermissions:nil silent:YES fromViewController:presentingViewController withSuccess:successBlock andFailure:failureBlock ];
 }
 
-- (void)authenticateWithPermissions:(NSArray *)permissions withSuccess:(PDKClientSuccess)successBlock andFailure:(PDKClientFailure)failureBlock
+- (void)authenticateWithPermissions:(NSArray *)permissions fromViewController:(UIViewController *)presentingViewController withSuccess:(PDKClientSuccess)successBlock andFailure:(PDKClientFailure)failureBlock
 {
-    [self authenticateWithPermissions:permissions silent:NO withSuccess:successBlock andFailure:failureBlock];
+    [self authenticateWithPermissions:permissions silent:NO fromViewController:presentingViewController withSuccess:successBlock andFailure:failureBlock];
 }
 
 - (void)authenticateWithPermissions:(NSArray *)permissions
                              silent:(BOOL)silent
+                 fromViewController:(UIViewController *)presentingViewController
                         withSuccess:(PDKClientSuccess)successBlock
                          andFailure:(PDKClientFailure)failureBlock
 {
@@ -162,7 +165,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
         PDKClientFailure localFailureBlock = ^(NSError *error) {
             if (permissions != nil) {
                 [SSKeychain deletePasswordForService:PDKPinterestSDK account:PDKPinterestSDKUsername];
-                [weakSelf authenticateWithPermissions:permissions withSuccess:successBlock andFailure:failureBlock];
+                [weakSelf authenticateWithPermissions:permissions fromViewController:presentingViewController withSuccess:successBlock andFailure:failureBlock];
             } else if (failureBlock) {
                 failureBlock(error);
             }
@@ -206,7 +209,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
         NSURL *oauthURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestAppOAuthURLString, [params _PDK_queryStringValue]]];
         
         if ([[UIApplication sharedApplication] canOpenURL:oauthURL]) {
-            [PDKClient openURL:oauthURL];
+            [PDKClient openURL:oauthURL fromViewController:presentingViewController];
         } else {
             NSString *redirectURL = [NSString stringWithFormat:@"pdk%@://", self.appId];
             params = @{@"client_id" : self.appId,
@@ -217,7 +220,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
             
             // open the web oauth
             oauthURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", kPDKPinterestWebOAuthURLString, [params _PDK_queryStringValue]]];
-            [PDKClient openURL:oauthURL];
+            [PDKClient openURL:oauthURL fromViewController:presentingViewController];
         }
     } else if (silent && failureBlock) {
         // silent was yes, but we did not have a cached token. that counts as a failure.
@@ -237,11 +240,8 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
     NSString *urlScheme = [url scheme];
     if ([urlScheme isEqualToString:self.clientRedirectURLString]) {
         // if we came here via SFSafariViewController then we need to dismiss the VC
-        if (NSClassFromString(@"SFSafariViewController") != nil) {
-            UIViewController *mainViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-            if ([[mainViewController presentedViewController] isKindOfClass:[SFSafariViewController class]]) {
-                [mainViewController dismissViewControllerAnimated:YES completion:nil];
-            }
+        if (self.safariViewController != nil) {
+            [self.safariViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         }
         
         // get the oauth token
@@ -589,13 +589,15 @@ static void defaultFailureAction(PDKClientFailure failureBlock, NSError *error)
     [self postPath:@"pins/" parameters:parameters withSuccess:successBlock andFailure:failureBlock];
 }
 
-+ (void)openURL:(NSURL *)url
++ (void)openURL:(NSURL *)url fromViewController:(UIViewController *)presentingViewController
 {
     NSString *scheme = [[url scheme] lowercaseString];
     if (NSClassFromString(@"SFSafariViewController") != nil && ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])) {
-        UIViewController *viewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-        SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
-        [viewController presentViewController:safariViewController animated:YES completion:nil];
+        [PDKClient sharedInstance].safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+        if (!presentingViewController) {
+            presentingViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        }
+        [presentingViewController presentViewController:[PDKClient sharedInstance].safariViewController animated:YES completion:nil];
     } else if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
     }
