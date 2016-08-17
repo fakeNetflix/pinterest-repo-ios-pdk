@@ -138,7 +138,7 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
 // authentication
 
 - (void)silentlyAuthenticatefromViewController:(UIViewController *)presentingViewController
-                                   WithSuccess:(PDKClientSuccess)successBlock
+                                   withSuccess:(PDKClientSuccess)successBlock
                                     andFailure:(PDKClientFailure)failureBlock
 {
     [self authenticateWithPermissions:nil silent:YES fromViewController:presentingViewController withSuccess:successBlock andFailure:failureBlock ];

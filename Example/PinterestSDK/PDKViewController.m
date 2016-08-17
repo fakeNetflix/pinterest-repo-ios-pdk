@@ -83,7 +83,8 @@
     [self updateButtonEnabledState];
     
     __weak PDKViewController *weakSelf = self;
-    [[PDKClient sharedInstance] silentlyAuthenticatefromViewController:self WithSuccess:^(PDKResponseObject *responseObject) {
+    [[PDKClient sharedInstance] silentlyAuthenticatefromViewController:self
+                                                           withSuccess:^(PDKResponseObject *responseObject) {
         [weakSelf updateButtonEnabledState];
     } andFailure:nil];
 }
