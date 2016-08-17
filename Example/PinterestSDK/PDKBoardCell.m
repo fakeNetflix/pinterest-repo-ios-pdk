@@ -22,6 +22,7 @@
 @implementation PDKBoardCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self showSpinner:NO withPercentage:0];
     self.boardImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.boardImageView.clipsToBounds = YES;
