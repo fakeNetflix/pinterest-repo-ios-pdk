@@ -83,7 +83,7 @@
     [self updateButtonEnabledState];
     
     __weak PDKViewController *weakSelf = self;
-    [[PDKClient sharedInstance] silentlyAuthenticateWithSuccess:^(PDKResponseObject *responseObject) {
+    [[PDKClient sharedInstance] silentlyAuthenticatefromViewController:self WithSuccess:^(PDKResponseObject *responseObject) {
         [weakSelf updateButtonEnabledState];
     } andFailure:nil];
 }
@@ -100,6 +100,7 @@
                                                               PDKClientWritePublicPermissions,
                                                               PDKClientReadRelationshipsPermissions,
                                                               PDKClientWriteRelationshipsPermissions]
+                                         fromViewController:self
                                                 withSuccess:^(PDKResponseObject *responseObject)
     {
         weakSelf.user = [responseObject user];
@@ -117,6 +118,7 @@
                        link:[NSURL URLWithString:@"https://www.pinterest.com"]
          suggestedBoardName:@"Tooty McFruity"
                        note:@"The Pinterest Logo"
+         fromViewController:self
                 withSuccess:^
     {
         weakSelf.resultLabel.text = [NSString stringWithFormat:@"successfully pinned pin"];
