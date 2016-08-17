@@ -119,7 +119,7 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
  *  @param failureBlock called if there is no cached token
  */
 - (void)silentlyAuthenticatefromViewController:(UIViewController *)presentingViewController
-                                   WithSuccess:(PDKClientSuccess)successBlock
+                                   withSuccess:(PDKClientSuccess)successBlock
                                     andFailure:(PDKClientFailure)failureBlock;
 
 /**
