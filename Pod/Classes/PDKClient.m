@@ -609,7 +609,24 @@ static void defaultFailureAction(PDKClientFailure failureBlock, NSError *error)
                description:(NSString *)pinDescription
                   progress:(PDKPinUploadProgress)progressBlock
                withSuccess:(PDKClientSuccess)successBlock
-                andFailure:(PDKClientFailure)failureBlock;
+                andFailure:(PDKClientFailure)failureBlock
+{
+    [self createPinWithImageData:UIImageJPEGRepresentation(image, 1.0f)
+                            link:link
+                         onBoard:boardId
+                     description:pinDescription
+                        progress:progressBlock
+                     withSuccess:successBlock
+                      andFailure:failureBlock];
+}
+
+- (void)createPinWithImageData:(NSData *)imageData
+                          link:(NSURL *)link
+                       onBoard:(NSString *)boardId
+                   description:(NSString *)pinDescription
+                      progress:(PDKPinUploadProgress)progressBlock
+                   withSuccess:(PDKClientSuccess)successBlock
+                    andFailure:(PDKClientFailure)failureBlock
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"board"] = boardId;
@@ -621,11 +638,10 @@ static void defaultFailureAction(PDKClientFailure failureBlock, NSError *error)
     NSString *path = @"pins/";
     NSString *urlString = [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
     [self POST:urlString parameters:[self signParameters:parameters] constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
         [formData appendPartWithFileData:imageData
                                     name:@"image"
-                                fileName:@"myphoto.jpg"
-                                mimeType:@"image/jpeg"];
+                                fileName:@"image"
+                                mimeType:@"application/octet-stream"];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         if (progressBlock && [uploadProgress totalUnitCount] > 0) {
             CGFloat percentComplete = (CGFloat)[uploadProgress completedUnitCount]/(CGFloat)[uploadProgress totalUnitCount];

@@ -427,6 +427,25 @@ typedef void (^PDKPinUploadProgress)(CGFloat percentComplete);
                 andFailure:(PDKClientFailure)failureBlock;
 
 /**
+ *  Creates a new pin from a UIImage
+ *
+ *  @param imageData      Image data to pin
+ *  @param link           A URL to the source page
+ *  @param boardId        Id of the board to pin to
+ *  @param pinDescription Description of the pin
+ *  @param progressBlock  Block called periodically as the UIImage uploads
+ *  @param successBlock Called when the API call succeeds
+ *  @param failureBlock Called when the API call fails
+ */
+- (void)createPinWithImageData:(NSData *)imageData
+                          link:(NSURL *)link
+                       onBoard:(NSString *)boardId
+                   description:(NSString *)pinDescription
+                      progress:(PDKPinUploadProgress)progressBlock
+                   withSuccess:(PDKClientSuccess)successBlock
+                    andFailure:(PDKClientFailure)failureBlock;
+
+/**
  *  Method used to open a URL. If the URL is a web address, we try to present a SFSafariViewController from the presentingViewController.
  * In earlier versions it uses UIApplication's openURL
  */
