@@ -1,3 +1,9 @@
+# Caveat -- Deprecation
+
+Pinterest considers this SDK deprecated. You can still build an integration with Pinterest into your iOS app using the RESTful endpoints directly. Best practice guidelines exist about use of OAuth within a mobile application. For instance, see [RFC 8252](https://tools.ietf.org/html/rfc8252).
+
+For documentation on the API itself, visit the [Pinterest Developers website](https://developers.pinterest.com/docs/getting-started/introduction).
+
 # PinterestSDK for iOS
 
 The PinterestSDK for iOS will allow you to authenticate an account with Pinterest and make requests on behalf of the authenticated user. For details on the supported endpoint, visit [the Pinterest API](https://developers.pinterest.com/docs/api/overview/).
